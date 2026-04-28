@@ -30,12 +30,7 @@ func (i *ItemRepositoryMemory) AddItem(item *entity.Item) error {
 }
 
 func (i *ItemRepositoryMemory) GetAllItem() ([]*entity.Item, error) {
-	var result []*entity.Item
-
-	for _, item := range i.items {
-		result = append(result, item)
-	}
-	return result, nil
+	return i.items, nil
 }
 
 func (i *ItemRepositoryMemory) FindItemByName(name string) (*entity.Item, error) {
@@ -47,14 +42,11 @@ func (i *ItemRepositoryMemory) FindItemByName(name string) (*entity.Item, error)
 	return nil, errors.New("Item tidak ditemukan")
 }
 
-func (i *ItemRepositoryMemory) UpdateStock(name string, qty int) error {
-	for _, item := range i.items {
-		if item.Nama == name {
-			item.Stok += qty
-			return nil
-		}
+func (i *ItemRepositoryMemory) Update(item *entity.Item) error {
+	if item == nil {
+		return errors.New("Item kosong")
 	}
-	return errors.New("Item tidak dapat ditemukan")
+	return nil
 }
 
 func (i *ItemRepositoryMemory) DeleteItem(name string) error {

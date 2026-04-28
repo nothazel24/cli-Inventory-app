@@ -1,17 +1,13 @@
 package errors
 
-type ValidationError struct {
+type AppError struct {
 	Message string
 }
 
-func (e *ValidationError) Error() string {
+func (e *AppError) Error() string {
 	return e.Message
 }
 
-type NotFoundError struct {
-	Message string
-}
-
-func (e *NotFoundError) Error() string {
-	return e.Message
+func New(msg string) error {
+	return &AppError{Message: msg}
 }
